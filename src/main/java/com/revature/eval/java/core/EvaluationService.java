@@ -1,4 +1,4 @@
-package com.revature.eval.java.core;
+﻿package com.revature.eval.java.core;
 
 import java.time.temporal.Temporal;
 import java.util.List;
@@ -30,8 +30,13 @@ public class EvaluationService {
 	 * @return
 	 */
 	public String acronym(String phrase) {
+		String acronym = "";
 		// TODO Write an implementation for this method declaration
-		return null;
+		for (int i = 0; i<phrase.length(); i++) {
+			if (Character.isUpperCase(phrase.charAt(i)))
+				acronym = acronym + phrase.charAt(i);
+		}
+		return acronym;
 	}
 
 	/**
@@ -85,18 +90,29 @@ public class EvaluationService {
 
 		public boolean isEquilateral() {
 			// TODO Write an implementation for this method declaration
+			if (getSideThree() == getSideTwo() && getSideTwo() ==  getSideOne()){
+				return true;
+			}
 			return false;
 		}
 
 		public boolean isIsosceles() {
 			// TODO Write an implementation for this method declaration
+			if (getSideThree() == getSideTwo() || getSideThree() == getSideOne() || getSideTwo() == getSideOne()) {
+				return true;
+			}
 			return false;
 		}
 
 		public boolean isScalene() {
+			if (!isIsosceles()) {
+				return true;
+			}
 			// TODO Write an implementation for this method declaration
 			return false;
 		}
+
+	}
 
 	}
 
@@ -116,9 +132,95 @@ public class EvaluationService {
 	 * @return
 	 */
 	public int getScrabbleScore(String string) {
-		// TODO Write an implementation for this method declaration
-		return 0;
+	int score = 0;
+	// TODO Write an implementation for this method declaration
+	for (int i = 0; i<string.length();i++) {
+		switch (string.charAt(i)) {
+		case 'A':
+			score = score + 1;
+			break;
+		case 'B':
+			score = score + 3;
+			break;
+		case 'C':
+			score = score + 3;
+			break;
+		case 'D':
+			score = score + 2;
+			break;
+		case 'E':
+			score = score + 1;
+			break;
+		case 'F':
+			score = score + 4;
+			break;
+		case 'G':
+			score = score + 2;
+			break;
+		case 'H':
+			score = score + 4;
+			break;
+		case 'I':
+			score = score + 1;
+			break;
+		case 'J':
+			score = score + 8;
+			break;
+		case 'K':
+			score = score + 5;
+			break;
+		case 'L':
+			score = score + 1;
+			break;
+		case 'M':
+			score = score + 3;
+			break;
+		case 'N':
+			score = score + 1;
+			break;
+		case 'O':
+			score = score + 1;
+			break;
+		case 'P':
+			score = score + 3;
+			break;
+		case 'Q':
+			score = score + 10;
+			break;
+		case 'R':
+			score = score + 1;
+			break;
+		case 'S':
+			score = score + 1;
+			break;
+		case 'T':
+			score = score + 1;
+			break;
+		case 'U':
+			score = score + 1;
+			break;
+		case 'V':
+			score = score + 4;
+			break;
+		case 'W':
+			score = score + 4;
+			break;
+		case 'X':
+			score = score + 8;
+			break;
+		case 'Y':
+			score = score + 4;
+			break;
+		case 'Z':
+			score = score + 10;
+			break;
+		default:
+			System.out.println("Invalid input");
+			break;
+		}
 	}
+	return score;
+}
 
 	/**
 	 * 5. Clean up user-entered phone numbers so that they can be sent SMS messages.
