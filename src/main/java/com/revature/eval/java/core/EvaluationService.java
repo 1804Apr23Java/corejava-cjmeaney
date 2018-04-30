@@ -253,10 +253,21 @@ public class EvaluationService {
 	 * Note: As this exercise only deals with telephone numbers used in
 	 * NANP-countries, only 1 is considered a valid country code.
 	 */
-	public String cleanPhoneNumber(String string) {
+	 public String cleanPhoneNumber(String string) {
 		// TODO Write an implementation for this method declaration
-		return null;
-	}
+		String cleanNumber = "";
+		for (int i = 1; i<string.length(); i++) {
+			if (string.substring(i,i+1).matches("\\d")) {
+				cleanNumber = cleanNumber.concat(string.substring(i,i+1));
+			}
+		}
+		
+		if(cleanNumber.length() == 11) {
+			cleanNumber = cleanNumber.replaceFirst("1","");
+		}
+
+		return cleanNumber;
+ 	}
 
 	/**
 	 * 6. Given a phrase, count the occurrences of each word in that phrase.
@@ -307,17 +318,52 @@ public class EvaluationService {
 	 * binary search is a dichotomic divide and conquer search algorithm.
 	 * 
 	 */
-	static class BinarySearch<T> {
+	static class BinarySearch<T extends Comparable<T>> {
 		private List<T> sortedList;
-
+		private int upperBound = 0;
+		private int lowerBound = 0;
+		private int size = 0;
 		public int indexOf(T t) {
 			// TODO Write an implementation for this method declaration
+			if(sortedList.size() % 2 == 1) {
+				if((sortedList.get((size-1)/2 + lowerBound)).compareTo(t) == 0)
+					return (size-1)/2 + lowerBound;
+				if((sortedList.get((size-1)/2 + lowerBound).compareTo(t) < 0)) {
+					this.lowerBound = (size-1)/2+lowerBound+1;
+					this.size = upperBound-lowerBound;
+					return indexOf(t);
+				}
+				if(sortedList.get((size-1)/2 + lowerBound).compareTo(t) > 0) {
+					this.upperBound = (size-1)/2+lowerBound-1;
+					this.size = upperBound-lowerBound;
+					return indexOf(t);
+				}
+			}
+			else {
+				if((sortedList.get((size)/2 + lowerBound)).compareTo(t) == 0)
+					return (size)/2 + lowerBound;
+				if((sortedList.get((size)/2 + lowerBound).compareTo(t) < 0)) {
+					this.lowerBound = (size)/2+lowerBound+1;
+					this.size = upperBound-lowerBound;
+					return indexOf(t);
+				}
+				if(sortedList.get((size)/2 + lowerBound).compareTo(t) > 0) {
+					this.upperBound = (size)/2+lowerBound-1;
+					this.size = upperBound-lowerBound;
+					return indexOf(t);
+				}
+			}
+				//else if ((sortedList.(sortedList.size()/2).compareTo(7)))
 			return 0;
 		}
 
 		public BinarySearch(List<T> sortedList) {
 			super();
 			this.sortedList = sortedList;
+			this.upperBound = sortedList.size();
+			this.size = upperBound - lowerBound;
+
+			
 		}
 
 		public List<T> getSortedList() {
@@ -326,8 +372,10 @@ public class EvaluationService {
 
 		public void setSortedList(List<T> sortedList) {
 			this.sortedList = sortedList;
-		}
+			this.upperBound = sortedList.size();
+			this.size = upperBound - lowerBound;
 
+		}
 	}
 
 	/**
@@ -349,7 +397,28 @@ public class EvaluationService {
 	 */
 	public String toPigLatin(String string) {
 		// TODO Write an implementation for this method declaration
-		return null;
+		String temp = "";
+		String returnString = "";
+		int i = 0;
+		
+		if(string.toUpperCase().startsWith("A") || string.toUpperCase().startsWith("E") || string.toUpperCase().startsWith("I") 
+				|| string.toUpperCase().startsWith("O") || string.toUpperCase().startsWith("U")) {
+				return string += "ay";
+		}
+		else {
+			while (!(string.toUpperCase().charAt(i) == 'A') && !(string.toUpperCase().charAt(i) == 'E') && 
+					!(string.toUpperCase().charAt(i) == 'I') && !(string.toUpperCase().charAt(i) == 'O') 
+					&& !(string.toUpperCase().charAt(i) == 'U')) {
+				temp += string.charAt(i);
+				i++;
+			}
+			while (i<string.length()) {
+				returnString += string.charAt(i);
+				i++;
+			}
+			returnString += temp;
+			return returnString += "ay";
+		}
 	}
 
 	/**
