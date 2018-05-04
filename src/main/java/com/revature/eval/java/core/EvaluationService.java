@@ -3,6 +3,7 @@
 import java.time.temporal.Temporal;
 import java.util.List;
 import java.util.Map;
+import java.util.HashMap;
 
 public class EvaluationService {
 
@@ -114,7 +115,6 @@ public class EvaluationService {
 
 	}
 
-	}
 
 	/**
 	 * 4. Given a word, compute the scrabble score for that word.
@@ -280,7 +280,16 @@ public class EvaluationService {
 	 */
 	public Map<String, Integer> wordCount(String string) {
 		// TODO Write an implementation for this method declaration
-		return null;
+		Map<String, Integer> wordList = new HashMap<>();
+		String[] parsedString = string.split("\\s+");
+		for (String word : parsedString) {
+			if (wordList.containsKey(word)) {
+				wordList.put(word, wordList.get(word) + 1);
+			} else {
+				wordList.put(word, 1);
+			}
+		}
+		return wordList;
 	}
 
 	/**
@@ -438,7 +447,36 @@ public class EvaluationService {
 	 */
 	public boolean isArmstrongNumber(int input) {
 		// TODO Write an implementation for this method declaration
-		return false;
+		if (input >= 1 && input <= 9)
+			return true;
+		
+		int individualDigit = input;
+		int armstrongMath = 0;
+		int i = 1;
+		String inputAsString = "" + input;
+		int inputLength = inputAsString.length();
+		int multiplication = 1;
+		int inputModified = input;
+		
+		while(inputModified > 0)
+		{
+			individualDigit = inputModified%10;
+			multiplication = 1;
+			for(i=1;i<=inputLength;i++) {
+				multiplication *= individualDigit;
+			}
+			armstrongMath = multiplication + armstrongMath;
+			System.out.println(armstrongMath);
+			inputModified = inputModified / 10;
+			
+			
+		}
+		if(armstrongMath == input) {
+			return true;
+		}
+		else {
+			return false;
+		}
 	}
 
 	/**
